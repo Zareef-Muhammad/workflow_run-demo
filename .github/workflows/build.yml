@@ -1,0 +1,22 @@
+name: Build Workflow
+
+on:
+  push:
+    branches:
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+      - name: Build code
+        run: |
+          echo "Building started..."
+          echo "Compiling code..."
+          echo "Build Successs"
+      - name: Run Test
+        run: |
+          echo "Running Test..."
+          echo "All Test Passed"              

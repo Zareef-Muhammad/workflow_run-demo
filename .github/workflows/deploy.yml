@@ -1,0 +1,33 @@
+name: Deploy Workflow
+on:
+  workflow_run:
+    workflows:
+        - "Build Workflow"
+    types:
+        - completed
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Build Status
+        run: |
+          echo "Checking Build status..."
+          echo "Build Conclusion: ${{ github.event.workflow_run.conclusion }}"
+      - name: Deploy Application
+        if: ${{ github.event.workflow_run.conclusion == 'success'}}
+        run: |
+          echo "Build was Successfull"
+          echo "starting deployment"
+          echo "deployment completed"
+      - name: Notify Build Failed
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: |
+          echo "Build failed"
+          echo "deployment cancelled"
+          echo "fix the build first!" 
+            
+        
+
+      
